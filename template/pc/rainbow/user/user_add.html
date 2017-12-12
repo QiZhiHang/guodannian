@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>添加会员</title>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/tpshop.css" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/myaccount.css" />
+		<script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<link type="text/css" rel="stylesheet" href="/public/plugins/daterangepicker/daterangepicker-bs3.css">
+		<script type="text/javascript" src="/public/plugins/daterangepicker/moment.min.js"></script>
+		<script type="text/javascript" src="/public/plugins/daterangepicker/daterangepicker.js"></script>
+		<style type="text/css">
+
+
+			#userinfo_form label.error
+			{
+				color:Red;
+				font-size:13px;
+				margin-left:5px;
+				padding-left:16px;
+
+			}
+		</style>
+	</head>
+	<body class="bg-f5">
+	<include file="user/header"/>
+		<div class="home-index-middle">
+			<div class="w1224">
+				<div class="g-crumbs">
+			       	<a href="{:U('Home/User/index')}">我的商城</a>
+			       	<i class="litt-xyb"></i>
+			       	<span>添加会员</span>
+			    </div>
+			    <div class="home-main">
+					<include file="user/menu"/>
+			    	<div class="ri-menu fr">
+						<div class="menumain p">
+							<div class="goodpiece">
+								<h1>添加会员</h1>
+								<!--<a href=""><span class="co_blue">帮助</span></a>-->
+							</div>
+							<div class="personerinfro">
+								<form action="" method="post" id="userinfo_form">
+
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>报单中心编号：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" name="belong_service" id="belong_service" value="{$user.mobile}" /></a></li>
+									</ul>
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>推荐人编号：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" value="{$user.mobile}" name="recommend_mobile" id="recommend_mobile" value="" /></a></li>
+									</ul>
+
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>用户编号：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" name="mobile" id="" value="" /></a></li>
+									</ul>
+
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>开户银行：</a></li>
+										<li><a href="javascript:void(0);">
+											<select name="user_bank">
+												<?php $bank_info = C('USER_BANK');
+														foreach($bank_info as $k=>$v){
+													?>
+												<option value="{$k}"><?php echo $v;?></option>
+												<?php }?>
+											</select>
+										</a></li>
+									</ul>
+
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>开户姓名：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" name="user_bank_name" id="" value="" /></a></li>
+									</ul>
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>银行卡号：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" name="bank_num" id="" value="" /></a></li>
+									</ul>
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>开户省份：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" name="bank_sheng" id="" value="" /></a></li>
+									</ul>
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>开户城市：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" name="bank_shi" id="" value=""/></a></li>
+									</ul>
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>联系地址：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" name="user_address" id="" value="" /></a></li>
+									</ul>
+									
+									 <ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>身份证号：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" name="user_card_id" id="user_card_id" value="" /></a></li>
+									</ul>
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>登录密码：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="password" name="password" id="" value="" /></a></li>
+									</ul>
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>二级密码：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="password" name="paypwd" id="" value="" /></a></li>
+									</ul>
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>入单数量：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" name="fenhong_points_num" id="" value="" /></a></li>
+									</ul>
+									<!--<ul class="birth_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);">生日：</a></li>
+										<li>
+											<a href="javascript:void(0);">
+												<input type="text" name="birthday" id="birthday" value="{$user.birthday|date='Y-m-d',###}" />
+											</a>
+										</li>
+									</ul>-->
+									<ul class="hobby_jz">
+										<li class="infor_wi_le"></li>
+										<li class="infor_wi_ri">
+
+											<div class="save_s">
+												<input class="save" type="submit" id="" name="" value="确认保存" />
+											</div>
+										</li>
+									</ul>
+								</form>
+							</div>
+						</div>
+			    	</div>
+			    </div>
+			</div>
+		</div>
+		<!--footer-s-->
+		<div class="footer p"><include file="public/footer_index" /> </div>
+		<!--footer-e-->
+	<script src="/public/plugins/validate/jquery.validate.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#userinfo_form').validate({
+
+					onfocusout: function(element){
+						        $(element).valid();
+						    },
+					rules:{
+						email:{
+                            required:true,
+                            remote:{
+                                type:"POST",
+                                url:"ajax_get_email",
+                                data:{
+                                    email:function(){return $('#email').val()}
+                                }
+                            },
+                        },
+
+                        user_card_id:{
+                            required:true,
+                            remote:{
+                                type:"POST",
+                                url:"ajax_get_id",
+                                data:{
+                                    user_card_id:function(){return $('#user_card_id').val()}
+                                }
+                            },
+                        },
+						mobile:{
+							required:true,
+						},
+
+						password:{
+							required:true,
+							minlength:6,
+
+						},
+						paypwd:{
+							required:true,
+							minlength:6,
+
+						},
+						fenhong_points_num:{
+							digits:true,
+						},
+						recommend_mobile:{
+							required:true,
+						},
+						nickname:{
+							required:true,
+						},
+					},
+					messages:{
+
+						email:{
+							required:'请填写用户编号',
+							remote:'编号已存在'
+
+						},
+
+                        user_card_id:{
+
+                            required:"请填写身份证号",
+                            remote:'身份证号不正确'
+                        },
+						mobile:{
+							required:'请填写编号'
+						},
+						password:{
+
+                            required:'请填写登录密码',
+							minlength:'请填写大于6位的密码'
+
+						},
+						paypwd:{
+
+							required:'请填写二级密码',
+							minlength:'请填写大于6位的密码'
+
+						},
+						fenhong_points_num:{
+							digits:'填写数字',
+						},
+						recommend_mobile:{
+
+							required:'请填写你的推荐人，添加后不能修改',
+
+						},
+						nickname:{
+							required:'请填写真实姓名，添加后不能修改',
+						},
+
+						user_card_id:{
+							required:'请填写您的身份证号',
+						}
+
+
+
+					}
+
+				})
+				// 生日时间
+				$('#birthday').daterangepicker({
+					singleDatePicker: true,
+					showDropdowns: true,
+					minDate: '1900-01-01',
+					maxDate: moment(),
+					startDate: moment(),
+					format: 'YYYY-MM-DD', //控件中from和to 显示的日期格式
+					locale: {
+						applyLabel: '确定',
+						cancelLabel: '取消',
+						fromLabel: '起始时间',
+						toLabel: '结束时间',
+						customRangeLabel: '自定义',
+						daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
+						monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
+							'七月', '八月', '九月', '十月', '十一月', '十二月'],
+						firstDay: 1
+					}
+				});
+				$('.daterangepicker').hide();
+			});
+			$(function(){
+				$('.choice_hobby').click(function(){
+					$(this).toggleClass('red');
+				})
+			})
+			function delimg(file,t){
+				$.get(
+						"/index.php?m=Admin&c=Uploadify&a=delupload",{action:"del", filename:file},function(){}
+				);
+				$('#head_pic').val('');
+				$('#preview').attr('src','');
+				$(t).remove();
+			}
+			function add_img(str){
+				var head_pic = $('#head_pic').val();
+				$('#head_pic').val(str);
+				$('#preview').attr('src',str);
+				$('img[class="headpic"]').attr('src',str);
+
+			}
+		</script>
+	</body>
+</html>

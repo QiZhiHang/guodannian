@@ -1,0 +1,70 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:47:"./application/admin/view2/user\user_guanxi.html";i:1506161701;}*/ ?>
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+	<TITLE> ZTREE DEMO - Async</TITLE>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<!-- <link rel="stylesheet" href="__ROOT__/public/ztree/css/demo.css" type="text/css"> -->
+	<link rel="stylesheet" href="__ROOT__/public/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+	<script type="text/javascript" src="__ROOT__/public/ztree/js/jquery-1.4.4.min.js"></script>
+	<script type="text/javascript" src="__ROOT__/public/ztree/js/jquery.ztree.core.js"></script>
+	<!--  <script type="text/javascript" src="../../../js/jquery.ztree.excheck.js"></script>
+	  <script type="text/javascript" src="../../../js/jquery.ztree.exedit.js"></script>-->
+	<SCRIPT type="text/javascript">
+		<!--
+		var setting = {
+			async: {
+				enable: true,
+				url:"<?php echo U('admin/user/getTree'); ?>",
+				autoParam:["id", "name=n", "level=lv"],
+				otherParam:{"otherParam":"zTreeAsyncTest"},
+				dataFilter: filter
+			}
+		};
+
+		function filter(treeId, parentNode, childNodes) {
+			if (!childNodes) return null;
+			for (var i=0, l=childNodes.length; i<l; i++) {
+				childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
+			}
+			return childNodes;
+		}
+
+		$(document).ready(function(){
+			$.fn.zTree.init($("#treeDemo"), setting);
+		});
+		//-->
+	</SCRIPT>
+</HEAD>
+
+<BODY>
+<div class="mDiv">
+	<div class="ftitle">
+		<h3>会员等级</h3>
+	</div>
+	<div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
+	<form class="navbar-form form-inline"  id="search-form2" action="<?php echo U('new_tree'); ?>" method="post">
+
+
+		<input type="hidden" name="mobile" value="" id="input-mobile" />
+		<input type="hidden" name="nickname" value="" id="input-email" />
+		<!--分销时查看下级人数都有哪些-->
+		<input type="hidden" name="first_leader" value="<?php echo $_GET['first_leader']; ?>">
+		<input type="hidden" name="second_leader" value="<?php echo $_GET['second_leader']; ?>">
+		<input type="hidden" name="third_leader" value="<?php echo $_GET['third_leader']; ?>">
+		<div class="sDiv">
+			<div class="sDiv2">
+				<input type="text" name="mobile" size="30" class="qsbox" placeholder="请填写编号...">
+				<input type="submit" class="btn" value="搜索">
+			</div>
+		</div>
+	</form>
+</div>
+<div class="content_wrap">
+	<div class="zTreeDemoBackground left">
+		<ul id="treeDemo" class="ztree"></ul>
+	</div>
+	
+</div>
+</BODY>
+</HTML>

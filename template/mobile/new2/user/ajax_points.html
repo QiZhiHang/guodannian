@@ -1,0 +1,13 @@
+
+<foreach name="account_log" item="v">
+    <ul>
+        <li class="li1" style="width: 15%;"><span>{$v[user_money]}</span></li>
+        <li class="li1" style="width: 15%;"><span>{$v[baodanbi]}</span></li>
+        <li class="li1" style="width: 15%;"><span>{$v[jihuobi]}</span></li>
+        <li class="li1" style="width: 15%;"><span>{$v['group_money']}</span></li>
+        <li class="li4" style="width: 40%;"><span>
+                    {$v['desc']|htmlspecialchars_decode|strip_tags|mb_substr=0,9,'utf-8'}
+                </span></li>
+    </ul>
+</foreach>
+

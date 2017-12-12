@@ -1,0 +1,40 @@
+<div class="le-menu fl">
+	<div class="menu-ul">
+		<ul>
+			<li class="ma"><i class="account-acc1"></i>交易中心</li>
+			<li><a href="{:U('Home/User/order_list')}">我的订单</a></li>
+			<!--<li><a href="">我的预售</a></li>-->
+			<!-- <li><a href="{:U('Home/User/comment')}">我的评价</a></li> -->
+		</ul>
+		<ul>
+			<li class="ma"><i class="account-acc2"></i>资产中心</li>
+
+			<li><a href="{:U('Home/User/recharge?type=1')}">账户余额</a></li>
+			<!-- <li><a href="{:U('Home/User/account')}">我的积分</a></li> -->
+			<!-- <li><a href="{:U('Home/User/fenhong')}">我的分红</a></li> -->
+			<?php if($user['is_service'] == 0){ ?>
+			<li><a href="{:U('Home/User/server')}">申请代理</a></li>
+			<?php }?>
+			<?php if($user['is_service'] == 1){ ?>
+			<li><a href="{:U('Home/User/user_add')}">添加会员</a></li>
+			<?php }?>
+			<li><a href="{:U('Home/User/fenhong_points')}">点位管理</a></li>
+			<li><a href="{:U('Home/User/recommend_tree')}">推荐关系</a></li>
+
+			<?php if($user['is_service'] == 1){ ?>
+			<li><a href="{:U('Home/User/baodan_list')}">报单中心</a></li>
+			<?php }?>
+			<!--<li><a href="">积分换券明细</a></li>-->
+		</ul>
+
+		<ul>
+			<li class="ma"><i class="account-acc4"></i>个人中心</li>
+			<li><a href="{:U('Home/User/info')}">个人信息</a></li>
+			
+			
+			<li><a href="{:U('Home/User/address_list')}">地址管理</a></li>
+
+		</ul>
+
+	</div>
+</div>

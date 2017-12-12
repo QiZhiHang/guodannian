@@ -1,0 +1,73 @@
+<include file="public/layout" />
+<body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+            <div class="subject">
+                <h3>管理资金</h3>
+                <h5>调整用户余额和积分</h5>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal" id="delivery-form" method="post">
+        <if condition="$_REQUEST['return_id'] neq null">
+            <input type="hidden" name="return_id" value="{$_REQUEST['return_id']|default=''}">
+            <input type="hidden" name="order_sn" value="{$order_info['order_sn']|default=''}">
+            <input type="hidden" name="order_id" value="{$order_info['order_id']|default=''}">
+        </if>
+
+        <div class="ncap-form-default">
+            <dl class="row">
+                <dt class="tit">账目类型</dt>
+                <dd class="opt">
+                    <select id="zhang_type" name="zhang_type">
+                        <!--<option value="1">购物币</option>
+                        <option value="2">激活币</option>-->
+                        <option value="3">报单币</option>
+                        <!--<option value="4">奖励币</option>-->
+
+                    </select>
+                    <p class="notic">报单币：{$user.baodanbi} &nbsp;&nbsp;购物币：{$user.user_money} &nbsp;&nbsp;激活币：{$user.jihuobi}&nbsp;&nbsp; 奖励币 ： {$user.group_money}</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">增减类型</dt>
+                <dd class="opt">
+                    <select id="act_type" name="act_type">
+                        <option value="1">增加</option>
+                        <option value="0">减少</option>
+                    </select>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">操作金额</dt>
+                <dd class="opt">
+
+                    <input id="money" name="money"  value="0" class="input-txt" type="text">
+
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    操作备注
+                </dt>
+                <dd class="opt">
+                    <textarea name="desc" class="tarea" rows="6">{$_REQUEST['desc']}</textarea>
+                    <span class="err"></span>
+                    <p class="notic">请输入操作备注</p>
+                </dd>
+            </dl>
+            <div class="bot"><a href="JavaScript:void(0);" onclick="$('#delivery-form').submit();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function clearInput(id){
+        $('#'+id).val(0);
+    }
+</script>
+</body>
+</html>

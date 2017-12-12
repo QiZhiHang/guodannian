@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>我的积分-{$tpshop_config['shop_info_store_title']}</title>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/tpshop.css" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/myaccount.css" />
+		<script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<link href="__PUBLIC__/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+		<script src="__PUBLIC__/plugins/daterangepicker/moment.min.js" type="text/javascript"></script>
+		<script src="__PUBLIC__/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+	</head>
+	<body class="bg-f5">
+	<include file="user/header"/>
+		<div class="home-index-middle">
+			<div class="w1224">
+				<div class="g-crumbs">
+			       	<a href="{:U('Home/User/index')}">我的商城</a>
+			       	<i class="litt-xyb"></i>
+			       	<span>我的分红点</span>
+			    </div>
+			    <div class="home-main">
+					<include file="user/menu"/>
+			    	<div class="ri-menu fr">
+						<div class="menumain p">
+							<div class="goodpiece">
+								<h1>我的分红点(本周有<font color="red">{$need_count}</font>个点位需要激活)</h1>
+								<!--<a href=""><span class="co_blue">积分规则</span></a>-->
+							</div>
+							<div class="shopcard myjfhg ma-to-20 p">
+								<div class="cuschan">
+									<span class="kycha"><i class="kyjf"></i>奖励积分：</span>
+									<span class="co">{$user.group_money}</span>
+									<!-- <a class="jfhg" href="{:U('Home/User/onekey_get')}">一键领取</a> -->
+								</div>
+								<div class="cuschan">
+									<span class="kycha"><i class="dsxjf"></i>报单积分：</span>
+									<span class="co">{$user.baodanbi}</span>
+								</div>
+								 <div class="cuschan">
+									<span class="kycha"><i class="gqjf"></i>购物积分：</span>
+									<span class="co">{$user.user_money}</span>
+								</div> 
+
+							</div>
+							<div class="time-sala timsearch">
+								<ul>
+									<li class="<if condition='$Request.param.type eq null OR $Request.param.type eq 0'>red<else/>mal-l</if>"><a href="{:U('Home/User/fenhong_points')}">分红点位列表</a></li>
+
+									<li class="<if condition='$Request.param.type eq 1'>red<else/>mal-l</if>"><a href="{:U('Home/User/fenhong_points',array('type'=>1))}">已完成</a></li>
+                                    <!--<li class="<if condition='$Request.param.type eq 2'>red<else/>mal-l</if>"><a href="{:U('Home/User/account',array('type'=>2))}">积分消费</a></li>-->
+								</ul>
+
+								<div class="time-qjc" style="display: block;">
+									  <!--下单时间：<input type="text" id="order_start" name="order_start" value="{$Request.param.order_start}">-->
+									  <!--<span>至</span>-->
+									  <!--<input type="text" id="order_end" name="order_end" value="{$Request.param.order_end}">-->
+									  <!--<input class="cx_subb" type="submit" onclick="time_search();"  value="查询" />-->
+								</div>
+								<!--<div class="search-ss-lit">-->
+									<!--<input type="text" id="order_sn" value="{$Request.param.order_sn}" placeholder="输入订单号查询">-->
+									<!--<i class="litt-sexx" onclick="order_search();"></i>-->
+								<!--</div>-->
+							</div>
+							<div class="he"></div>
+
+							<!--<div class="searc_sx">
+								<span>快捷筛选：</span>
+								<a class="red" href="javascript:void(0);">全部</a>
+								<a href="{:U('Home/User/account',array_merge(array('type'=>I('type',0)),array('desc'=>'下单赠送积分')))}">下单赠送积分</a>
+								<a href="{:U('Home/User/account',array_merge(array('type'=>I('type',0)),array('desc'=>'下单消费')))}">下单消费</a>
+								<a href="{:U('Home/User/account',array_merge(array('type'=>I('type',0)),array('desc'=>'订单退货')))}">订单退货</a>
+								<a href="{:U('Home/User/account',array_merge(array('type'=>I('type',0)),array('desc'=>'退款到用户余额')))}">退款到用户余额</a>
+							</div>-->
+							<div class="card-list accbala bor-acc">
+								<ul>
+									<li style="width: 11%"><a href="javascript:void(0);">分红编号</a></li>
+									<!-- <li style="width: 12%"><a href="javascript:void(0);">添加时间</a></li> -->
+									<li style="width: 11%"><a href="javascript:void(0);">开始时间</a></li>
+									<!-- <li style="width: 12%"><a href="javascript:void(0);">结束时间</a></li> -->
+									<li style="width: 11%"><a href="javascript:void(0);">进行次数</a></li>
+									<li style="width: 11%"><a href="javascript:void(0);">是否激活</a></li>
+									<li style="width: 11%"><a href="javascript:void(0);">激活后进行次数</a></li>
+									<li style="width: 11%"><a href="javascript:void(0);">状态</a></li>
+									<!-- <li style="width: 11%"><a href="javascript:void(0);">操作1</a></li>
+									<li style="width: 11%"><a href="javascript:void(0);">操作2</a></li> -->
+									<!-- <li style="width: 11%"><a href="javascript:void(0);">操作3</a></li> -->
+
+								</ul>
+							</div>
+							<empty name="account_log">
+								<p class="ncyekjl">--暂无记录--</p>
+							</empty>
+
+							<volist name="account_log" id="log">
+									<div class="card-list c_contan accbala-list">
+										<ul>
+											<li style="width: 11%"><a href="javascript:void(0);">{$log.fenhong_id}</a></li>
+											<!-- <li style="width: 12%"><a href="javascript:void(0);">{$log.fenhong_addtime|date='Y-m-d H:i',###}</a></li> -->
+											<li style="width: 11%"><a href="javascript:void(0);">{$log.fenhong_starttime+1|date='Y-m-d',###}</a></li>
+											<!-- <li style="width: 12%"><a href="javascript:void(0);">{$log.fenhong_endtime|date='Y-m-d H:i',###}</a></li> -->
+											<li style="width: 11%"><a href="javascript:void(0);">{$log.fenhong_times}</a></li>
+
+											<li style="width: 11%"><a href="javascript:void(0);"><if condition="$log.fenhong_active_state eq 0">未激活<else/>已激活</if></a></li>
+											<li style="width: 11%"><a href="javascript:void(0);">
+											{$log.fenhong_active_times}
+											</a></li>
+											<li style="width: 11%"><a href="javascript:void(0);">
+												<if condition="$log.fenhong_state eq 1">新人入单<else/>复投</if>
+											</a></li>
+											<!-- <li style="width: 11%" class="green_car"><a href="javascript:void(0);"></a>
+											<php>if($log['fenhong_active_state'] == 0 && $log['fenhong_times'] == 10 && $log['fenhong_endtime'] >= $now_week_begin){</php>
+												激活
+											<php>}elseif($log['fenhong_active_state'] == 1){</php>
+												已经激活
+											<php>}else{</php>
+												无法激活
+											<php>}</php>
+											</li> -->
+
+											<!-- <li style="width: 11%" class="green_car"><a href="javascript:void(0);"></a>
+											<php>if($log['fenhong_active_state'] == 0 && $log['fenhong_times'] < 10 && $log['fenhong_nowtime'] < $now_week_begin && $log['fenhong_starttime'] < time()){</php>
+												<a href="{:U('Home/User/get_fenhong_result',array('id'=>$log.fenhong_id))}">领取奖励</a>
+											<php>}elseif($log['fenhong_active_state'] == 1 && $log['fenhong_times'] == 10 && $log['fenhong_active_nowtime'] < $now_week_begin && $log['fenhong_active_times'] < 10 && $log['fenhong_active_starttime'] < time()){</php>
+												<a href="{:U('Home/User/get_active_fenhong_result',array('id'=>$log.fenhong_id))}">领取激活奖励</a>
+											<php>}else{</php>
+												无
+											<php>}</php>
+												
+											</li> -->
+
+											<!-- <li style="width: 11%"><a href="javascript:void(0);">
+												<if condition="$log.fenhong_state eq 1"><a href="{:U('Home/User/points_return',array('id'=>$log.fenhong_id))}" class="co_blue">转出</a><else/>无法操作</if>
+											</a></li> -->
+											
+										</ul>
+									</div>
+							</volist>
+							<div class="operating fixed" id="bottom">
+								<div class="fn_page clearfix">
+									{$page}
+								</div>
+							</div>
+						</div>
+			    	</div>
+			    </div>
+			</div>
+		</div>
+        <!--footer-s-->
+        <div class="footer p">
+            <include file="public/footer_index" />
+        </div>
+        <!--footer-e-->
+		<script type="text/javascript">
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,45 @@
+<include file="public/header" title="申请代理中心" body=""/>
+<include file="public/header_nav" title="申请代理中心" href="javascript:history.back(-1)"/>
+		<div class="loginsingup-input ma-to-20">
+			<form action="?" method="post" onsubmit="return checkSubmit()">
+				<div class="content30">
+                    <div class="lsu">
+                        <span>是否代理中心：</span>
+						<?php if($user['is_service'] == 1){echo '是';}else{echo '否';} ?>
+
+                    </div>
+
+					<div class="lsu" style="padding-top: 1.02133rem;">
+						<span>备注：</span>
+						<textarea name="desc" id="desc" cols="30" rows="5"></textarea>
+					</div>
+					<div class="lsu submit">
+						<input type="submit" name="" id="" value="提交申请" <?php if($user['is_service'] == 1){echo "disabled=disabled";} ?>>
+					</div>
+				</div>
+			</form>
+		</div>
+
+<script type="text/javascript" charset="utf-8">
+    // 验证码切换
+    function verify(){
+        $('#verify_code_img').attr('src','/index.php?m=Mobile&c=User&a=verify&type=withdrawals&r='+Math.random());
+    }
+
+    /**
+     * 提交表单
+     * */
+    function checkSubmit(){
+
+        var paypwd = $.trim($('#desc').val());
+        //验证码
+
+        if(paypwd == ''){
+            showErrorMsg("请填写备注")
+            return false;
+        }
+
+    }
+</script>
+	</body>
+</html>

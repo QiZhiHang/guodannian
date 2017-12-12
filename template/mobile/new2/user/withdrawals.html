@@ -1,0 +1,76 @@
+<include file="public/header" title="申请提现" body=""/>
+<include file="public/header_nav" title="申请提现" href="javascript:history.back(-1)"/>
+		<div class="loginsingup-input ma-to-20">
+			<form action="?" method="post" onsubmit="return checkSubmit()">
+				<div class="content30">
+
+					<input type="hidden" name="withdrawals_type" value="3">
+
+
+						<input type="hidden" name="account_bank" id="account_bank" value="{$user_info['bank_num']}"  placeholder="银行卡号" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')">
+
+
+						<input type="hidden" name="account_name" id="account_name" value="{$user_info['user_bank_name']}"  placeholder="持卡人姓名">
+
+
+						<input type="hidden" name="bank_name" id="bank_name" value="<?php echo C('USER_BANK')[$user_info['user_bank']]; ?>" placeholder="如：工商银行">
+
+                    <div class="lsu">
+                        <span>提现金额：</span>
+                        <input type="text" name="money" id="money" value="<?php
+
+                        		if(($user_info['group_money'] % 100) == 0){
+                        			echo $user_info['group_money'];
+                        		}else{
+                        			echo $user_info['group_money'] - ($user_info['group_money'] % 100);
+                        		}
+
+
+                        ?>" usermoney="" placeholder="" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')">
+                    </div>
+                    <div class="lsu test">
+                        <span>验证码：</span>
+                        <input type="text" name="verify_code" id="verify_code" value="" placeholder="请输入验证码">
+                        <img  id="verify_code_img" src="{:U('User/verify',array('type'=>'withdrawals'))}" onClick="verify()" style=""/>
+                    </div>
+					<div class="lsu">
+						<span>二级密码：</span>
+						<input type="password" name="paypwd" id="paypwd" value="" placeholder="请输入您的二级密码" >
+					</div>
+					<div class="lsu submit">
+						<input type="submit" name="" id="" value="提交申请">
+					</div>
+				</div>
+			</form>
+		</div>
+
+<script type="text/javascript" charset="utf-8">
+    // 验证码切换
+    function verify(){
+        $('#verify_code_img').attr('src','/index.php?m=Mobile&c=User&a=verify&type=withdrawals&r='+Math.random());
+    }
+
+    /**
+     * 提交表单
+     * */
+    function checkSubmit(){
+        var bank_name = $.trim($('#bank_name').val());
+        var account_bank = $.trim($('#account_bank').val());
+        var account_name = $.trim($('#account_name').val());
+        var money = parseFloat($.trim($('#money').val()));
+        var verify_code = $.trim($('#verify_code').val());
+        var paypwd = $.trim($('#paypwd').val());
+        //验证码
+        if(verify_code == '' ){
+            showErrorMsg('验证码不能空')
+            return false;
+        }
+        if(bank_name == '' || account_bank == '' || account_name=='' || money == ''){
+            showErrorMsg("所有信息为必填")
+            return false;
+        }
+
+    }
+</script>
+	</body>
+</html>

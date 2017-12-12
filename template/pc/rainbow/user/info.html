@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>个人信息</title>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/tpshop.css" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/myaccount.css" />
+		<script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<link type="text/css" rel="stylesheet" href="/public/plugins/daterangepicker/daterangepicker-bs3.css">
+		<script type="text/javascript" src="/public/plugins/daterangepicker/moment.min.js"></script>
+		<script type="text/javascript" src="/public/plugins/daterangepicker/daterangepicker.js"></script>
+		<style type="text/css">
+
+
+			#userinfo_form label.error
+			{
+				color:Red;
+				font-size:13px;
+				margin-left:5px;
+				padding-left:16px;
+
+			}
+		</style>
+	</head>
+	<body class="bg-f5">
+	<include file="user/header"/>
+		<div class="home-index-middle">
+			<div class="w1224">
+				<div class="g-crumbs">
+			       	<a href="{:U('Home/User/index')}">我的商城</a>
+			       	<i class="litt-xyb"></i>
+			       	<span>个人信息修改</span>
+			    </div>
+			    <div class="home-main">
+					<include file="user/menu"/>
+			    	<div class="ri-menu fr">
+						<div class="menumain p">
+							<div class="goodpiece">
+								<h1>个人信息</h1>
+								<!--<a href=""><span class="co_blue">帮助</span></a>-->
+							</div>
+							<div class="personerinfro">
+								<form action="" method="post" id="userinfo_form">
+									<!--<ul class="hend_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);">头像：</a></li>
+										<li class="infor_img">
+											<a href="javascript:void(0);">
+												<img id="preview" src="{$user.head_pic|default='__STATIC__/images/headPic.jpg'}" onClick="GetUploadify2(1,'head_pic','head_pic','add_img')"/>
+											</a>
+											<input type="hidden" name="head_pic" id="head_pic" value="{$user.head_pic}">
+										</li>
+									</ul>-->
+
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>会员编号：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" name="mobile" id="mobile" value="{$user.mobile}" disabled="disabled" /></a></li>
+									</ul>
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>所属报单中心：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" name="belong_service" id="belong_service" value="<?php $info = M('users')->where('user_id='.$user['belong_service'])->find();
+												echo $info['nickname'];
+
+										?>" disabled="disabled" /></a></li>
+									</ul>
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>开户姓名：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" name="nickname" id="nickname" value="{$user.user_bank_name}"  disabled="disabled"/></a></li>
+									</ul>
+
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>开户银行：</a></li>
+										<li><a href="javascript:void(0);">
+											<select name="user_bank" >
+												<?php $bank_info = C('USER_BANK');
+														foreach($bank_info as $k=>$v){
+													?>
+												<option value="{$k}" <?php if($user['user_bank'] == $k){echo 'selected';} ?>><?php echo $v;?></option>
+												<?php }?>
+											</select>
+										</a></li>
+									</ul>
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>银行卡号：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" name="bank_num" id="" value="{$user.bank_num}"/></a></li>
+									</ul>
+
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>开户省份：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" name="bank_sheng" id="" value="{$user.bank_sheng}" /></a></li>
+									</ul>
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>开户城市：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" name="bank_shi" id="" value="{$user.bank_shi}" /></a></li>
+									</ul>
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>联系地址：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" name="user_address" id="" value="{$user.user_address}" /></a></li>
+									</ul>
+									<!--<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>注册电话：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" name="mobile" id="" value="{$user.mobile}" disabled="disabled"/></a></li>
+									</ul>-->
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><span style="color:red">*</span>身份证号：</a></li>
+										<li><a href="javascript:void(0);"><input class="name_zjxs" type="text" name="user_card_id" id="" value="{$user.user_card_id}" <?php if(!empty($user['user_card_id'])){echo 'disabled=disabled';} ?>/></a></li>
+									</ul>
+
+									<ul class="birth_jz">
+										<li class="infor_wi_le"><a href="{:U('password')}">登录密码：</a></li>
+										<li>
+											<a href="{:U('password')}"  style="cursor: pointer;">
+												修改登录密码请点击这里
+											</a>
+										</li>
+									</ul>
+									<ul class="birth_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);">二级密码：</a></li>
+										<li>
+											<a href="{:U('paypwd')}"  style="cursor: pointer;">
+												修改二级密码请点击这里
+											</a>
+										</li>
+									</ul>
+									<ul class="hobby_jz">
+										<li class="infor_wi_le"></li>
+										<li class="infor_wi_ri">
+
+											<div class="save_s">
+												<input class="save" type="submit" id="" name="" value="确认保存" />
+											</div>
+										</li>
+									</ul>
+								</form>
+							</div>
+						</div>
+			    	</div>
+			    </div>
+			</div>
+		</div>
+		<!--footer-s-->
+		<div class="footer p"><include file="public/footer_index" /> </div>
+		<!--footer-e-->
+	<script src="/public/plugins/validate/jquery.validate.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#userinfo_form').validate({
+					rules:{
+						bank_num:{
+							required:true,
+							digits:true,
+						},
+						user_bank_name:{
+							required:true,
+						},
+						bank_sheng:{
+							required:true,
+						},
+						bank_shi:{
+							required:true,
+						},
+						user_address:{
+							required:true,
+						},
+						user_card_id:{
+							required:true,
+						}
+
+					},
+					messages:{
+						bank_num:{
+							required:'请填写银行卡号',
+							digits:'请填写合法的卡号',
+						},
+						user_bank_name:{
+							required:'请填写银行卡开户姓名',
+						},
+						bank_sheng:{
+							required:'请填写银行卡开户所在省',
+						},
+						bank_shi:{
+							required:'请填写银行卡开户所在的市',
+						},
+						user_address:{
+							required:'请填写您的住宅地址',
+						},
+						user_card_id:{
+							required:'请填写您的身份证号',
+						}
+
+
+
+					}
+
+				})
+				// 生日时间
+				$('#birthday').daterangepicker({
+					singleDatePicker: true,
+					showDropdowns: true,
+					minDate: '1900-01-01',
+					maxDate: moment(),
+					startDate: moment(),
+					format: 'YYYY-MM-DD', //控件中from和to 显示的日期格式
+					locale: {
+						applyLabel: '确定',
+						cancelLabel: '取消',
+						fromLabel: '起始时间',
+						toLabel: '结束时间',
+						customRangeLabel: '自定义',
+						daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
+						monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
+							'七月', '八月', '九月', '十月', '十一月', '十二月'],
+						firstDay: 1
+					}
+				});
+				$('.daterangepicker').hide();
+			});
+			$(function(){
+				$('.choice_hobby').click(function(){
+					$(this).toggleClass('red');
+				})
+			})
+			function delimg(file,t){
+				$.get(
+						"/index.php?m=Admin&c=Uploadify&a=delupload",{action:"del", filename:file},function(){}
+				);
+				$('#head_pic').val('');
+				$('#preview').attr('src','');
+				$(t).remove();
+			}
+			function add_img(str){
+				var head_pic = $('#head_pic').val();
+				$('#head_pic').val(str);
+				$('#preview').attr('src',str);
+				$('img[class="headpic"]').attr('src',str);
+
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,3 @@
+<?php
+//000000000000a:18:{s:8:"site_url";s:21:"http://www.tp-shop.cn";s:9:"record_no";s:0:"";s:10:"store_name";s:18:"圣和醉美商城";s:10:"store_logo";s:67:"/public/upload/logo/2017/09-20/0017b992292003ed91cdadfd659dcbd1.png";s:11:"store_title";s:59:"圣和醉美商城 | 圣和醉美商城 |圣和醉美商城";s:10:"store_desc";s:75:"圣和醉美商城 圣和醉美商城 圣和醉美商城 圣和醉美商城";s:13:"store_keyword";s:94:"圣和醉美商城 圣和醉美商城 圣和醉美商城 圣和醉美商城 圣和醉美商城";s:7:"contact";s:0:"";s:5:"phone";s:0:"";s:7:"address";s:12:"裕鸿国际";s:2:"qq";s:0:"";s:3:"qq2";s:0:"";s:3:"qq3";s:0:"";s:6:"mobile";s:0:"";s:8:"province";s:5:"21387";s:4:"city";s:5:"21388";s:8:"district";s:1:"0";s:11:"form_submit";s:2:"ok";}
+?>

@@ -1,0 +1,142 @@
+<include file="public/header" title="资金管理" body="g4"/>
+    <div class="myhearder bankhearder">
+        <div class="hh">
+            <h2>购物币</h2>
+            <h1>{$user['user_money']}</h1>
+        </div>
+        <?php  if($user['is_service'] == 0){ ?>
+        <div class="scgz">
+            <ul>
+                <li>
+                    <a href="{:U('Mobile/User/recharge')}">
+                        <img src="__STATIC__/images/cz.png"/>
+                        <p>充值</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:U('Mobile/User/withdrawals')}">
+                        <img src="__STATIC__/images/tx.png"/>
+                        <p>提现</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <?php }elseif($user['is_service'] == 1){?>
+        <div class="scgz">
+            <ul>
+                <li>
+                    <a href="{:U('Mobile/User/withdrawals')}">
+                        <img src="__STATIC__/images/cz.png"/>
+                        <p>提现</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:U('Mobile/User/return_other')}">
+                        <img src="__STATIC__/images/tx.png"/>
+                        <p>转激活券</p>
+                    </a>
+                </li>
+
+               <!-- <li>
+                    <a href="{:U('Mobile/User/user_add')}">
+                        <img src="__STATIC__/images/tx.png"/>
+                        <p>添加会员</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:U('Mobile/User/withdrawals')}">
+                        <img src="__STATIC__/images/tx.png"/>
+                        <p>报单中心管理</p>
+                    </a>
+                </li>-->
+            </ul>
+        </div>
+
+        <?php }?>
+    </div>
+    <div class="floor my p">
+        <div class="content">
+
+            <div class="floor list7 ma-to-20">
+                <div class="myorder p">
+                    <div class="content30">
+                        <a href="{:U('Mobile/User/points')}">
+                            <div class="order">
+                                <div class="fl">
+                                    <span>账户明细</span>
+                                </div>
+                                <div class="fr">
+                                    <i class="Mright"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="myorder p">
+                    <div class="content30">
+                        <a href="{:U('Mobile/User/withdrawals_list')}">
+                            <div class="order">
+                                <div class="fl">
+                                    <span>申请记录</span>
+                                </div>
+                                <div class="fr">
+                                    <i class="Mright"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="myorder p">
+                    <div class="content30">
+                        <a href="{:U('Mobile/User/fenhong_points')}">
+                            <div class="order">
+                                <div class="fl">
+                                    <span>分红记录</span>
+                                </div>
+                                <div class="fr">
+                                    <i class="Mright"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <?php if($user['is_service'] == 1){ ?>
+                <div class="myorder p">
+                    <div class="content30">
+                        <a href="{:U('Mobile/User/service')}">
+                            <div class="order">
+                                <div class="fl">
+                                    <span>申请代理中心</span>
+                                </div>
+                                <div class="fr">
+                                    <i class="Mright"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="myorder p">
+                    <div class="content30">
+                        <a href="{:U('Mobile/User/user_add')}">
+                            <div class="order">
+                                <div class="fl">
+                                    <span>添加会员</span>
+                                </div>
+                                <div class="fr">
+                                    <i class="Mright"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <?php }?>
+        </div>
+    </div>
+    <!--底部导航-start-->
+    <include file="public/footer_nav" />
+    <!--底部导航-end-->
+</body>
+</html>

@@ -1,0 +1,60 @@
+<include file="public/header" title="分红记录" body=""/>
+<include file="public/header_nav" title="分红记录" href="javascript:history.back(-1)"/>
+<div class="application-record">
+    <div class="maleri30">
+        <ul class="re_tit">
+            <li class="li1" style="width: 16.6%;"><span>编号</span></li>
+            <li class="li1" style="width: 16.6%;"><span>vip</span></li>
+            <li class="li1" style="width: 16.6%;"><span>代理</span></li>
+            <li class="li1" style="width: 16.6%;"><span>报单数</span></li>
+            <li class="li4" style="width: 16.6%;"><span>统计</span></li>
+            <li class="li1" style="width: 16.6%;"><span>操作</span></li>
+        </ul>
+        <foreach name="user_list" item="v">
+            <ul>
+                <li class="li1" style="width: 16.6%;"><span>{$v[email]}</span></li>
+                <li class="li1" style="width: 16.6%;"><span><?php if($v['is_vip']){echo '是';}else{echo '否';} ?></span></li>
+                <li class="li1" style="width: 16.6%;"><span><?php if($v['is_service']){echo '是';}else{echo '否';} ?></span></li>
+                <li class="li1" style="width: 16.6%;"><span>{$v['fenhong_points_num']}</span></li>
+                <li class="li4" style="width: 16.6%;"><span>{$v.need_active}/{$v.continue_point}/{$v.active_c_points}/{$v.active_c_points}</span></li>
+                <li class="li1" style="width: 16.6%;">
+                    <span class="red">
+                    <if condition="$v.is_vip eq 0">
+                        <a href="{:U('active_user',array('id'=>$v.user_id))}">激活</a>
+                        <elseif condition="$v.is_vip eq 1 "/>
+                        <a href="{:U('insert_baodan',array('id'=>$v.user_id))}">入单</a>
+                    </if>
+                </span>
+                </li>
+            </ul>
+        </foreach>
+    </div>
+    <!--加载更多S-->
+    <!--<notempty name="list">-->
+    <!--<div id="getmore" style="font-size:.32rem;text-align: center;color:#888;padding:.25rem .24rem .4rem; clear:both">-->
+    <!--<a href="javascript:void(0)" onClick="ajax_sourch_submit()">点击加载更多</a>-->
+    <!--</div>-->
+    <!--</notempty>-->
+    <!--加载更多E-->
+</div>
+<script type="text/javascript" src="__STATIC__/js/sourch_submit.js"></script>
+<script>
+    var page = 1;
+    function ajax_sourch_submit(){
+        page++;
+        $.ajax({
+            type:'GET',
+            url:'/index.php/Mobile/User/withdrawals_list/is_ajax/1/p/'+page,
+            success:function(data){
+                if($.trim(data)==''){
+                    $('#getmore').hide();
+                    return false;
+                }else{
+                    $('.maleri30').append(data);
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

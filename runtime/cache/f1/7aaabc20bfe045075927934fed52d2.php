@@ -1,0 +1,3 @@
+<?php
+//000000000000a:25:{s:12:"reg_integral";s:1:"0";s:9:"file_size";s:1:"1";s:15:"default_storage";s:1:"1";s:15:"warning_storage";s:1:"1";s:3:"tax";s:1:"6";s:9:"is_remind";s:1:"0";s:17:"order_finish_time";s:0:"";s:17:"order_cancel_time";s:0:"";s:12:"hot_keywords";s:13:"酒|小洞仙";s:8:"app_test";s:1:"0";s:4:"need";s:3:"500";s:3:"min";s:3:"500";s:6:"invite";s:1:"1";s:15:"invite_integral";s:1:"0";s:13:"dianzibi_rate";s:1:"2";s:11:"guquan_rate";s:1:"2";s:18:"recommner_rate_one";s:1:"6";s:18:"recommner_rate_two";s:1:"8";s:20:"recommner_rate_three";s:2:"10";s:19:"recommner_rate_four";s:1:"8";s:19:"recommner_rate_five";s:1:"6";s:18:"recommner_rate_six";s:1:"4";s:20:"recommner_rate_seven";s:1:"2";s:20:"recommner_rate_eight";s:1:"2";s:19:"recommner_rate_nine";s:1:"2";}
+?>

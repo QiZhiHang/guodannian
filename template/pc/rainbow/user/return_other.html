@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>用户转让</title>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/tpshop.css" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/myaccount.css" />
+		<link rel="shortcut  icon" type="image/x-icon" href="__STATIC__/images/favicon.ico" media="screen"  />
+		<script src="__STATIC__/js/jquery-1.11.3.min.js" ></script>
+	</head>
+	<body class="bg-f5">
+		<include file="user/header"/>
+		<div class="home-index-middle">
+			<div class="w1224">
+				<div class="g-crumbs">
+			       	<a href="/">我的商城</a>
+			       	<i class="litt-xyb"></i>
+			       	<span>用户转让</span>
+			    </div>
+			    <div class="home-main">
+					<include file="user/menu"/>
+			    	<div class="ri-menu fr">
+						<div class="menumain p">
+							<div class="goodpiece">
+								<h1>用户转让</h1>
+								<a href="javascript:void(0)"><span class="co_blue">账户余额说明</span></a>
+								<input type="hidden" id="openid" value="{$user.openid}">
+							</div>
+							<div class="personerinfro tixbox">
+								<form action="" method="post" id="distribut_form">
+
+									<ul class="hend_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><i class="star">*</i>转让金额：</a></li>
+										<li class="infor_img">
+											<div class="duleyuan">
+												<input type="text" name="money" id="money" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')"/>
+												<span>元</span>
+											</div>
+                                          &nbsp;&nbsp;&nbsp;&nbsp;最多可转出金额：{$user.baodanbi}
+										</li>
+									</ul>
+			
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><i class="star">*</i>转让账号：</a></li>
+										<li>
+											<a href="javascript:void(0);">
+											<input class="name_zjxs" type="text" name="return_mobile" id="return_mobile" placeholder="请输入要转让会员的编号" />
+
+											</a>
+
+											<p class="adviceql">请认真核对！会扣除自身的的资金转入到所填用户的账户上</p>
+											<p id="my_name"></p>
+										</li>
+									</ul>
+									
+									<ul class="name_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"><i class="star">*</i>验证码：</a></li>
+										<li class="name_jz">
+											<a href="javascript:void(0);">
+                                                <input class="name_zjxs wisd" type="text" name="verify_code" id="verify_code" value="" placeholder="请输入验证码"/>
+                                            </a>
+										</li>
+                                        <li>
+                                            <a href="javascript:void(0);"><img src="{:U('User/verify',array('type'=>'withdrawals'))}" id="verify_code_img" width="120" heigth="38" onclick="verify(this)"/></a>
+                                        </li>
+									</ul>
+                                    <ul class="name_jz">
+                                        <li class="infor_wi_le"><a href="javascript:void(0);"><i class="star">*</i>支付密码：</a></li>
+                                        <li>
+                                            <a href="javascript:void(0);"><input class="name_zjxs wisd" type="password" name="paypwd" id="paypwd" value="" /></a>
+                                            <if condition="empty($user['paypwd'])">
+                                                <p class="haiew">还未设置支付密码</p>
+                                                <a class="ha-re" style="cursor:pointer" href="{:U('User/paypwd')}">马上设置</a>
+                                            </if>
+                                        </li>
+                                    </ul>
+									<ul class="hobby_jz">
+										<li class="infor_wi_le"><a href="javascript:void(0);"></a></li>
+										<li class="infor_wi_ri">
+											<div class="save_s">
+												<input class="save" type="button" onclick="checkSubmit()" value="确认转让" />
+												<input class="save closoff" type="reset" onclick="location.href='{:U('User/recharge')}'" value="取消并返回" />
+											</div>
+										</li>
+									</ul>
+								</form>
+							</div>
+						</div>
+			    	</div>
+			    </div>
+			</div>
+		</div>
+		<!--footer-s-->
+		<div class="footer p"><include file="public/footer_index" /> </div>
+		<!--footer-e-->
+		<!--<script src="/public/plugins/validate/jquery.validate.min.js"></script>-->
+		<script type="text/javascript">
+
+            function verify(){
+                $('#verify_code_img').attr('src','/index.php?m=Home&c=User&a=verify&type=withdrawals&r='+Math.random());
+            }
+			$(document).ready(function() {
+
+				$('#return_mobile').blur(function () {
+					var return_mobile = $.trim($('#return_mobile').val());
+					$.ajax({
+						url:'ajax_get_return_name',
+						data:{return_mobile:return_mobile},
+						//dataType:"json",
+						type:"POST",
+						success:function (data) {
+							$("#my_name").html(data)
+
+						}
+
+
+					})
+				});
+				//alert(33);
+				/*$('#distribut_form').validate({
+
+					onfocusout: function(element){
+						$(element).valid();
+					},
+					rules:{
+						return_mobile:{
+							required:true,
+							remote:{
+								type:'POST',
+								url:"ajax_get_return_name",
+									data:{
+									return_mobile:function(){return $('#return_mobile').val()}
+								}
+
+							}
+						}
+
+					},
+					messages:{
+
+						return_mobile:{
+							required:'转账账号不能为空',
+							remote:'账号不存在'
+						}
+					}
+
+				})*/
+
+
+			});
+
+
+			$('.paydegs span').click(function(){
+					if($(this).find('label').html()=='微信'){
+						if($('#openid').val() == ''){
+							layer.alert('请在用户中心账号绑定里先扫码绑定微信账号',{icon:2});
+							return false;
+						}else{
+							$('.paydegs span').find('i').removeClass('chek');
+							$('#bank_name').val($('#openid').val());
+							$(this).find('i').addClass('chek');
+						}
+					}else{
+						$('.paydegs span').find('i').removeClass('chek');
+						$('#bank_name').val($(this).find('label').html());
+						$(this).find('i').addClass('chek');
+					}
+				})
+
+			// 表单验证提交
+			function checkSubmit(){
+				var money = $.trim($('#money').val());
+				var return_mobile = $.trim($('#return_mobile').val());
+				var verify_code = $.trim($('#verify_code').val());
+				var paypwd = $.trim($('#paypwd').val());
+
+				if(money == '')
+				{
+					layer.alert('提现金额必填',{icon:2});
+					return false;
+				}
+						
+				if(return_mobile == '')
+				{
+					layer.alert('转账手机号',{icon:2});
+					return false;
+				}
+		
+				if(verify_code == '')
+				{
+					layer.alert('验证码必填',{icon:2});
+					return false;
+				}
+
+				if(paypwd == '')
+				{
+					layer.alert('支付密码必填',{icon:2});
+					return false;
+				}
+
+				$('#distribut_form').submit();
+			}
+		</script>
+	</body>
+</html>

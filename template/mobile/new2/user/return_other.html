@@ -1,0 +1,93 @@
+<include file="public/header" title="转账他人" body=""/>
+<include file="public/header_nav" title="转账他人" href="javascript:history.back(-1)"/>
+		<div class="loginsingup-input ma-to-20">
+			<form action="?" method="post" onsubmit="return checkSubmit()">
+				<div class="content30">
+
+
+
+                    <div class="lsu">
+                        <span>转账金额：</span>
+                        <input type="text" name="money" id="money" value="<?php
+
+                        		if(($user_info['group_money'] % 100) == 0){
+                        			echo $user_info['group_money'];
+                        		}else{
+                        			echo $user_info['group_money'] - ($user_info['group_money'] % 100);
+                        		}
+
+
+                        ?>" usermoney="" placeholder="" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')">
+                    </div>
+					<div class="lsu">
+						<span>转入手机号：</span>
+						<input type="" name="my_mobile" id="my_mobile" value="" placeholder="" >
+						<p id="return_name"></p>
+					</div>
+                  <!--  <div class="lsu test">
+                        <span>验证码：</span>
+                        <input type="text" name="verify_code" id="verify_code" value="" placeholder="请输入验证码">
+                        <img  id="verify_code_img" src="{:U('User/verify',array('type'=>'return_other'))}" onClick="verify()" style=""/>
+                    </div>-->
+					<div class="lsu">
+						<span>二级密码：</span>
+						<input type="password" name="paypwd" id="paypwd" value="" placeholder="请输入您的二级密码" >
+					</div>
+					<div class="lsu submit">
+						<input type="submit" name="" id="" value="提交申请">
+					</div>
+				</div>
+			</form>
+		</div>
+
+<script type="text/javascript" charset="utf-8">
+    // 验证码切换
+    function verify(){
+        $('#verify_code_img').attr('src','/index.php?m=Mobile&c=User&a=verify&type=return_other&r='+Math.random());
+    }
+    /*
+    * 绑定一个失焦点事件*/
+    //$(document).ready(function () {
+		$("#my_mobile").blur(function () {
+			$.ajax({
+				url:"get_return_name",
+				data:{my_mobile:$(this).val()},
+				type:'POST',
+				dataType:"json",
+				success:function (data) {
+					$("#return_name").html(data.msg)
+				}
+				
+			})
+		})
+	//})
+
+
+    /**
+     * 提交表单
+     * */
+    function checkSubmit(){
+
+        var money = parseFloat($.trim($('#money').val()));
+        var verify_code = $.trim($('#verify_code').val());
+        var paypwd = $.trim($('#paypwd').val());
+		var my_mobile = $.trim($("#my_mobile").val());
+        //验证码
+		if(my_mobile == ''){
+
+			showErrorMsg('请填写转账的用户名称')
+			return false;
+		}
+        /*if(verify_code == '' ){
+            showErrorMsg('验证码不能空')
+            return false;
+        }*/
+        if(paypwd=='' || money == ''){
+            showErrorMsg("所有信息为必填")
+            return false;
+        }
+
+    }
+</script>
+	</body>
+</html>

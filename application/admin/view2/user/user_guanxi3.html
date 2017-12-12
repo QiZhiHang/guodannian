@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+   <head>
+  
+   </head>
+   <body class='wst-page' style="min-width:1200px;">
+    <link rel="stylesheet" href="__ROOT__/public/ztree2/css/zTreeStyle/zTreeStyle.css" type="text/css">
+     <div class="wst-tbar">
+	     <form method='post' class="form-horizontal" action="{:U('Admin/Users/familytree')}" style="float:left;width:250px;">
+			    <input type='text' id='loginName' name='loginName' class='form-control wst-ipt-15' placeholder="会员编号" value='{$loginName}'/>
+				<button type="submit" class="btn btn-primary glyphicon glyphicon-search">查询</button> 
+				
+	     </form>
+		 <button class="btn btn-md btn-success" id="resetBtn">全部折叠</button>
+		 <button class="btn btn-md btn-danger" id="expandAllBtn">全部展开</button>
+	 </div>
+	 <div class="wst-body">
+	     <ul style="width: 100%; overflow: auto; -moz-user-select: none;" id="tree" class="ztree"></ul>
+	 </div>
+	
+<script type="text/javascript" src="__ROOT__/public/ztree2/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="__ROOT__/public/ztree2/js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="__ROOT__/public/ztree2/js/jquery.ztree.exedit.js"></script>		
+
+<script type="text/javascript" >
+ 	var zTree;
+      var demoMsg = {
+			async:"正在进行异步加载，请等一会儿再点击...",
+			expandAllOver: "全部展开完毕",
+			asyncAllOver: "后台异步加载完毕",
+			asyncAll: "已经异步加载完毕，不再重新加载",
+			expandAll: "已经异步加载完毕，使用 expandAll 方法"
+		}
+		var setting = {
+			async: {
+				enable: true,
+				<empty name="uid">
+				url:"{:U('Admin/Users/getTree')}",
+				<else />
+				url:"{:U('Admin/Users/getTree',array('uid'=>$uid))}",
+				</empty>
+				autoParam:["userId",'tdeep'],
+				dataFilter: filter,
+				type: "get"
+			},
+            data: {
+                 key:{
+                         name:"loginName",
+                         title:"title",
+                     },
+				simpleData: {
+				    enable:true,
+				    idKey: "userId",
+				    pIdKey: "userTid",
+				    rootPId: ""
+			    }
+				
+			},
+			view: {
+				nameIsHTML: true,
+			},
+			callback: {
+				beforeAsync: beforeAsync,
+				onAsyncSuccess: onAsyncSuccess,
+				onAsyncError: onAsyncError
+			}
+		};
+         
+     
+              //3
+		function filter(treeId, parentNode, childNodes) {
+			if (!childNodes) return null;			
+			for (var i=0, l=childNodes.length; i<l; i++) {       
+				var userId = childNodes[i].userId;
+				childNodes[i].icon= "/Public/images/pop.png";
+				childNodes[i].target= "_self";
+				
+					childNodes[i].title= childNodes[i].loginName;
+					childNodes[i].loginName = childNodes[i].loginName+"["+childNodes[i].userName+"]";
+					if(childNodes[i].tdeep > 0){
+					childNodes[i].loginName = childNodes[i].loginName+"<span style='color:green;'>[第"+(childNodes[i].tdeep)+"代]</span>";
+					
+					}else{
+					childNodes[i].loginName = childNodes[i].loginName+"<span style='color:green;'>[自己]</span>";
+					
+					}
+					
+					childNodes[i].loginName = childNodes[i].loginName+"<span style='color:red;'>[推荐人数（已激活）："+childNodes[i].recom_num+"人]</span>";
+				
+			}
+			return childNodes;
+		}
+              //2
+		function beforeAsync() {
+			curAsyncCount++;
+		}
+              
+		function onClick(e,treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("tree");
+			zTree.expandNode(treeNode);
+		}
+		
+              //4
+		function onAsyncSuccess(event, treeId, treeNode, msg) {
+			curAsyncCount--;
+			if (curStatus == "expand") {
+				//alert('1');
+				expandNodes(treeNode.children);
+			} else if (curStatus == "async") {
+				asyncNodes(treeNode.children);
+			}
+
+			if (curAsyncCount <= 0) {
+				//alert('2');
+				if (curStatus != "init" && curStatus != "") {
+					
+					$("#demoMsg").text((curStatus == "expand") ? demoMsg.expandAllOver : demoMsg.asyncAllOver);
+					asyncForAll = true;
+				}
+				curStatus = "";
+			}
+		}
+
+		function onAsyncError(event, treeId, treeNode, XMLHttpRequest, textStatus, errorThrown) {
+                       alert('onAsyncError');
+			curAsyncCount--;
+
+			if (curAsyncCount <= 0) {
+				curStatus = "";
+				if (treeNode!=null) asyncForAll = true;
+			}
+		}
+
+		var curStatus = "init", curAsyncCount = 0, asyncForAll = false,
+		goAsync = false;
+		function expandAll() {
+                  //alert('expandAll');
+			if (!check()) {
+				return;
+			}
+			var zTree = $.fn.zTree.getZTreeObj("tree");
+			if (asyncForAll) {
+				$("#demoMsg").text(demoMsg.expandAll);
+				zTree.expandAll(true);
+			} else {
+				expandNodes(zTree.getNodes());
+				if (!goAsync) {
+					$("#demoMsg").text(demoMsg.expandAll);
+					curStatus = "";
+				}
+			}
+		}
+		function expandNodes(nodes) {
+			if (!nodes) return;
+			curStatus = "expand";
+			var zTree = $.fn.zTree.getZTreeObj("tree");
+			for (var i=0, l=nodes.length; i<l; i++) {
+				zTree.expandNode(nodes[i], true, false, false);
+				if (nodes[i].isParent && nodes[i].zAsync) {
+					expandNodes(nodes[i].children);
+				} else {
+					goAsync = true;
+				}
+			}
+		}
+
+		function asyncAll() {
+                  // alert('asyncAll');
+			if (!check()) {
+				return;
+			}
+			var zTree = $.fn.zTree.getZTreeObj("tree");
+			if (asyncForAll) {
+				$("#demoMsg").text(demoMsg.asyncAll);
+			} else {
+				asyncNodes(zTree.getNodes());
+				if (!goAsync) {
+					$("#demoMsg").text(demoMsg.asyncAll);
+					curStatus = "";
+				}
+			}
+		}
+		function asyncNodes(nodes) {
+                  // alert('asyncNodes');
+			if (!nodes) return;
+			curStatus = "async";
+			var zTree = $.fn.zTree.getZTreeObj("tree");
+			for (var i=0, l=nodes.length; i<l; i++) {
+				if (nodes[i].isParent && nodes[i].zAsync) {
+					asyncNodes(nodes[i].children);
+				} else {
+					goAsync = true;
+					zTree.reAsyncChildNodes(nodes[i], "refresh", true);
+				}
+			}
+		}
+
+		function reset() {
+                   //alert('reset');
+			if (!check()) {
+				return;
+			}
+			asyncForAll = false;
+			goAsync = false;
+			$("#demoMsg").text("");
+			$.fn.zTree.init($("#tree"), setting);
+		}
+
+		function check() {
+                   //alert('check');
+			if (curAsyncCount > 0) {
+				$("#demoMsg").text(demoMsg.async);
+				return false;
+			}
+			return true;
+		}
+
+		$(document).ready(function(){
+			$.fn.zTree.init($("#tree"), setting);
+			$("#expandAllBtn").bind("click", expandAll);
+			$("#resetBtn").bind("click", reset);
+		});
+</script>
+
+	   
+	   
+	   
+   </body>
+</html>

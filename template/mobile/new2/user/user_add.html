@@ -1,0 +1,246 @@
+<include file="public/header" title="增加会员" body="g4"/>
+<include file="public/header_nav" title="增加会员" href="javascript:history.back(-1)"/>
+<div class="loginsingup-input mobil_topup">
+
+
+    <form method="post"  id="add_user_form" onsubmit="return recharge_submit()" action="">
+        <div class="bawhite">
+            <div class="content30">
+                <div class="lsu">
+                    <span>真实姓名：</span>
+                    <input type="text" name="nickname" id="nickname" value=""  placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="bawhite">
+            <div class="content30">
+                <div class="lsu">
+                    <span>推荐人手机号：</span>
+                    <input type="text" name="recommend_mobile" id="recommend_mobile" value=""  placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="bawhite">
+            <div class="content30">
+                <div class="lsu">
+                    <span>用户编号：</span>
+                    <input type="text" name="email" id="email" value=""  placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="bawhite">
+            <div class="content30">
+                <div class="lsu">
+                    <span>注册电话：</span>
+                    <input type="text" name="mobile" id="mobile" value=""  placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="bawhite">
+            <div class="content30">
+                <div class="lsu">
+                    <span>身份证号：</span>
+                    <input type="text" name="user_card_id" id="user_card_id" value=""  placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="bawhite">
+            <div class="content30">
+                <div class="lsu">
+                    <span>银行名称：</span>
+                    <select name="user_bank">
+                        <?php $bank_info = C('USER_BANK');
+														foreach($bank_info as $k=>$v){
+                        ?>
+                        <option value="{$k}" <?php if($user['user_bank'] == $k){echo 'selected';} ?>><?php echo $v;?></option>
+                        <?php }?>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="bawhite">
+            <div class="content30">
+                <div class="lsu">
+                    <span>开户人姓名：</span>
+                    <input type="text" name="user_bank_name" id="user_bank_name" value=""  placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="bawhite">
+            <div class="content30">
+                <div class="lsu">
+                    <span>银行卡号：</span>
+                    <input type="text" name="bank_num" id="bank_num" value=""  placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="bawhite">
+            <div class="content30">
+                <div class="lsu">
+                    <span>开户省：</span>
+                    <input type="text" name="bank_sheng" id="bank_sheng" value=""  placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="bawhite">
+        <div class="content30">
+            <div class="lsu">
+                <span>开户城市：</span>
+                <input type="text" name="bank_shi" id="bank_shi" value=""  placeholder="">
+            </div>
+        </div>
+    </div>
+        <div class="bawhite">
+            <div class="content30">
+                <div class="lsu">
+                    <span>地址：</span>
+                    <input type="text" name="user_address" id="user_address" value=""  placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="bawhite">
+            <div class="content30">
+                <div class="lsu">
+                    <span>登录密码：</span>
+                    <input type="text" name="password" id="password" value=""  placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="bawhite">
+            <div class="content30">
+                <div class="lsu">
+                    <span>二级密码：</span>
+                    <input type="text" name="paypwd" id="paypwd" value=""  placeholder="">
+                </div>
+            </div>
+        </div>
+       <!-- <div class="bawhite">
+            <div class="content30">
+                <div class="lsu">
+                    <span>入单并激活：</span>
+                    <input type="radio" name="is_active" id="" value="1"  placeholder="">激活
+                    <input type="radio" name="is_active" id="" value="0"  placeholder="">不激活
+                </div>
+            </div>
+        </div>-->
+        <div class="bawhite">
+            <div class="content30">
+                <div class="lsu">
+                    <span>入单并激活：</span>
+                    <select name="is_active" id="" style="width: 200px;height: 50px;">
+                        <option value="1">激活</option>
+                        <option value="0">不激活</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="bawhite">
+            <div class="content30">
+                <div class="lsu">
+                    <span>入单数量：</span>
+                    <input type="text" name="fenhong_points_num" id="fenhong_points_num" value=""  placeholder="">
+                </div>
+            </div>
+        </div>
+
+        <div class="content30">
+            <div class="lsu submit">
+                <input type="submit" onclick="recharge_submit()" value="提交申请">
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/public/plugins/validate/jquery.validate.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $("#add_user_form").validate({
+
+        onfocusout:function (element) {
+            $(element).valid();
+        },
+        rules:{
+            email:{
+                required:true,
+                remote:{
+                    type:"POST",
+                    url:"ajax_get_email",
+                    data:{
+                        email:function(){return $('#email').val()}
+                    }
+                },
+            },
+            mobile:{
+                required:true,
+            },
+            password:{
+                required:true,
+                minlength:6,
+
+            },
+            paypwd:{
+                required:true,
+                minlength:6,
+
+            },
+            fenhong_points_num:{
+                digits:true,
+            },
+            recommend_mobile:{
+                required:true,
+            },
+            nickname:{
+                required:true,
+            },
+
+            user_card_id:{
+                required:true,
+            }
+        },
+        messages:{
+            email:{
+                required:'请填写用户编号',
+                //remote:jQuery.format("编号不合法")},
+                remote:'编号已存在'
+
+            },
+            mobile:{
+                required:'请填写注册手机号',
+            },
+            password:{
+
+                required:'请填写登录密码',
+                minlength:'请填写大于6位的密码'
+
+            },
+            paypwd:{
+
+                required:'请填写二级密码',
+                minlength:'请填写大于6位的密码'
+
+            },
+            fenhong_points_num:{
+                digits:'填写数字',
+            },
+            recommend_mobile:{
+
+                required:'请填写你的推荐人，添加后不能修改',
+
+            },
+            nickname:{
+                required:'请填写真实姓名，添加后不能修改',
+            },
+
+            user_card_id:{
+                required:'请填写您的身份证号',
+            }
+
+
+        }
+
+    })
+})
+
+</script>
+</body>
+</html>

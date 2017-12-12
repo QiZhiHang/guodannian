@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>我的积分-{$tpshop_config['shop_info_store_title']}</title>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/tpshop.css" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/myaccount.css" />
+		<script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<link href="__PUBLIC__/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+		<script src="__PUBLIC__/plugins/daterangepicker/moment.min.js" type="text/javascript"></script>
+		<script src="__PUBLIC__/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+	</head>
+	<body class="bg-f5">
+	<include file="user/header"/>
+		<div class="home-index-middle">
+			<div class="w1224">
+				<div class="g-crumbs">
+			       	<a href="{:U('Home/User/index')}">我的商城</a>
+			       	<i class="litt-xyb"></i>
+			       	<span>我的分红点</span>
+			    </div>
+			    <div class="home-main">
+					<include file="user/menu"/>
+			    	<div class="ri-menu fr">
+						<div class="menumain p">
+							<div class="goodpiece">
+								<h1>我的分红点</h1>
+								<!--<a href=""><span class="co_blue">积分规则</span></a>-->
+							</div>
+							<div class="shopcard myjfhg ma-to-20 p">
+								<div class="cuschan">
+									<span class="kycha"><i class="kyjf"></i>团队业绩：</span>
+									<span class="co">{$all_money}</span>
+								</div>
+								<div class="cuschan">
+									<span class="kycha"><i class="dsxjf"></i>总体人数：</span>
+									<span class="co">{$all_ren}</span>
+								</div>
+								<div class="cuschan">
+									<span class="kycha"><i class="gqjf"></i>直推人数：</span>
+									<span class="co">{$all_zt}</span>
+								</div>
+							</div>
+							<div class="time-sala timsearch">
+								<ul>
+									<li class="<if condition='$Request.param.type eq null OR $Request.param.type eq 0'>red<else/>mal-l</if>"><a href="{:U('Home/User/fenhong_points')}">直推网络</a></li>
+								</ul>
+
+								<div class="time-qjc" style="display: block;">
+									  <!--下单时间：<input type="text" id="order_start" name="order_start" value="{$Request.param.order_start}">-->
+									  <!--<span>至</span>-->
+									  <!--<input type="text" id="order_end" name="order_end" value="{$Request.param.order_end}">-->
+									  <!--<input class="cx_subb" type="submit" onclick="time_search();"  value="查询" />-->
+								</div>
+								<!--<div class="search-ss-lit">-->
+									<!--<input type="text" id="order_sn" value="{$Request.param.order_sn}" placeholder="输入订单号查询">-->
+									<!--<i class="litt-sexx" onclick="order_search();"></i>-->
+								<!--</div>-->
+							</div>
+							<div class="he"></div>
+
+							<!--<div class="searc_sx">
+								<span>快捷筛选：</span>
+								<a class="red" href="javascript:void(0);">全部</a>
+								<a href="{:U('Home/User/account',array_merge(array('type'=>I('type',0)),array('desc'=>'下单赠送积分')))}">下单赠送积分</a>
+								<a href="{:U('Home/User/account',array_merge(array('type'=>I('type',0)),array('desc'=>'下单消费')))}">下单消费</a>
+								<a href="{:U('Home/User/account',array_merge(array('type'=>I('type',0)),array('desc'=>'订单退货')))}">订单退货</a>
+								<a href="{:U('Home/User/account',array_merge(array('type'=>I('type',0)),array('desc'=>'退款到用户余额')))}">退款到用户余额</a>
+							</div>-->
+							<div class="card-list accbala bor-acc">
+								<ul>
+									<li style="width: 11%"><a href="javascript:void(0);">会员ID</a></li>
+									<li style="width: 11%"><a href="javascript:void(0);">手机号</a></li>
+									<li style="width: 11%"><a href="javascript:void(0);">推荐人手机号</a></li>
+									<li style="width: 11%"><a href="javascript:void(0);">是否VIP</a></li>
+									<li style="width: 11%"><a href="javascript:void(0);">手否代理</a></li>
+									<li style="width: 11%"><a href="javascript:void(0);">报单数量</a></li>
+									<li style="width: 11%"><a href="javascript:void(0);">操作1</a></li>
+								</ul>
+							</div>
+							<empty name="user_list">
+								<p class="ncyekjl">--暂无记录--</p>
+							</empty>
+
+							<volist name="user_list" id="list">
+									<div class="card-list c_contan accbala-list">
+										<ul>
+											<li style="width: 11%"><a href="javascript:void(0);">{$list.user_id}</a></li>
+											<li style="width: 11%"><a href="javascript:void(0);">{$list.mobile}</a></li>
+											<li style="width: 11%"><a href="javascript:void(0);">{$list.recommend_mobile}</a></li>
+											<li style="width: 11%"><a href="javascript:void(0);"><if condition="$list.is_vip eq 0">否<else/>是</if></a></li>
+											<li style="width: 11%"><a href="javascript:void(0);"><if condition="$list.is_service eq 0">否<else/>是</if></a></li>
+											<li style="width: 11%"><a href="javascript:void(0);">{$list.fenhong_points_num}</a></li>
+											<li style="width: 11%" class="green_car"><a href="javascript:void(0);"></a>
+												<a  href="{:U('Home/User/user_tree',array('id'=>$list.user_id))}">查看下级</a>
+											</li>
+											
+										</ul>
+									</div>
+							</volist>
+							<div class="operating fixed" id="bottom">
+								<div class="fn_page clearfix">
+									{$page}
+								</div>
+							</div>
+						</div>
+			    	</div>
+			    </div>
+			</div>
+		</div>
+        <!--footer-s-->
+        <div class="footer p">
+            <include file="public/footer_index" />
+        </div>
+        <!--footer-e-->
+		<script type="text/javascript">
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,36 @@
+<div class="m-top-bar editable" moduleid="1539923" style="position:relative;min-height:25px;">
+  <div class="container">
+    <ul class="fl">
+
+        <div class="ls-dlzc fl nologin">
+            <a href="{:U('Home/user/login')}">Hi,请登录</a>
+
+        </div>
+        <div class="ls-dlzc fl islogin">
+            <a class="red userinfo" href="{:U('Home/user/index')}"></a>
+            <a href="{:U('Home/user/logout')}">退出</a>
+        </div>
+        <script>
+            $(function (){
+                    var uname = getCookie('uname');
+                    if (uname == '') {
+                        $('.islogin').remove();
+                        $('.nologin').show();
+                    } else {
+                        $('.nologin').remove();
+                        $('.islogin').show();
+                        $('.userinfo').html(decodeURIComponent(uname).substring(0,5));
+                    }
+            })
+
+        </script>
+      <li class="fl sep"></li>
+      <!--<li class="fl select-city dropdown">
+        <span class="menu-item">
+        <span>送货至：</span>
+        <a title="" alt="" href="" class="J_cur_place"></a><i class="dd"></i></span>
+      </li>-->
+    </ul>
+
+  </div>
+</div>
